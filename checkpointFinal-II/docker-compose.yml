@@ -1,0 +1,59 @@
+version: '3.2'
+
+services:
+  zipkin-service:
+    image: openzipkin/zipkin:2
+    container_name: zipkin-service
+    ports:
+      - 9411:9411
+  rabbit-service:
+    image: rabbitmq:3-management
+    container_name: rabbit-service
+    ports:
+      - 5672:5672
+      - 15672:15672
+  eureka-server:
+    build: eureka
+    container_name: eureka-server
+    depends_on:
+      - zipkin-service
+    ports:
+      - 8761:8761
+  serie-service:
+    build: serie
+    container_name: serie-service
+    depends_on:
+      - eureka-server
+    ports:
+      - 8081:8081
+  movie-service:
+    build: movie
+    container_name: movie-service
+    depends_on:
+      - eureka-server
+    ports:
+      - 8084:8084
+  catalog-service:
+    build: catalog
+    container_name: catalog-service
+    depends_on:
+      - eureka-server
+    ports:
+      - 8083:8083
+#  config-server:
+#    build: config
+#    container_name: config-server
+#    depends_on:
+#      - eureka-server
+#    ports:
+#      - 8888:8888
+  gateway-server:
+    build: gateway
+    container_name: gateway-server
+    depends_on:
+      - serie-service
+      - catalog-service
+      - movie-service
+    ports:
+      - 8080:8080
+

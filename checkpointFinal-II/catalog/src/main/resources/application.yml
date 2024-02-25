@@ -1,0 +1,9 @@
+spring:
+  config:
+    import: optional:configserver:http://host.docker.internal:8888/
+  application:
+    name : catalog-service
+  cloud:
+    config:
+      profile: checkpointfinal
+

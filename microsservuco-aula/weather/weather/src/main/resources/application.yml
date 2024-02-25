@@ -1,0 +1,23 @@
+
+
+spring:
+  config:
+    import: optional:configserver:http://localhost:8888/
+  application:
+    name : weather-service
+
+
+#server.port = 8085
+#
+#spring.application.name = weather-service
+#
+#eureka.client.service-url.defaultZone = http://localhost:8761/eureka/
+#
+#message = Message to test
+#
+#management.info.env.enabled = true
+#management.endpoints.web.exposure.include = health, info
+#
+#info.autor = Narayana Brahmajyoti
+#info.email = nbrahmajyoti@gmail.com
+#info.mesa = Mesa 15/05/2023
